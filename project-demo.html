@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Demo - Login & Register</title>
+    <style>
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #1a1a2e;
+            padding: 2rem 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 245, 255, 0.2);
+            width: 350px;
+        }
+
+        h2 {
+            color: #00f5ff;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #00f5ff;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 8px;
+            border: 1px solid #00f5ff33;
+            background: #22223b;
+            color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #00f5ff, #0099cc);
+            color: #fff;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+
+        .toggle-link {
+            color: #00f5ff;
+            text-align: center;
+            display: block;
+            margin-top: 1rem;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .message {
+            text-align: center;
+            margin-top: 1rem;
+            color: #00f5ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <form id="loginForm">
+            <h2>Login</h2>
+            <div class="form-group">
+                <label for="login-username">Username</label>
+                <input type="text" id="login-username" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button type="submit">Login</button>
+            <span class="toggle-link" id="showRegister">Don't have an account? Register</span>
+            <div class="message" id="loginMessage"></div>
+        </form>
+        <form id="registerForm" style="display:none;">
+            <h2>Register</h2>
+            <div class="form-group">
+                <label for="register-username">Username</label>
+                <input type="text" id="register-username" required>
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" required>
+            </div>
+            <button type="submit">Register</button>
+            <span class="toggle-link" id="showLogin">Already have an account? Login</span>
+            <div class="message" id="registerMessage"></div>
+        </form>
+    </div>
+    <script>
+        // Toggle between login and register forms
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        document.getElementById('showRegister').onclick = () => {
+            loginForm.style.display = 'none';
+            registerForm.style.display = 'block';
+        };
+        document.getElementById('showLogin').onclick = () => {
+            registerForm.style.display = 'none';
+            loginForm.style.display = 'block';
+        };
+
+        // Simple in-memory user store (for demo only)
+        let demoUser = null;
+
+        // Register
+        registerForm.onsubmit = function (e) {
+            e.preventDefault();
+            const username = document.getElementById('register-username').value;
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            if (username && email && password) {
+                demoUser = { username, email, password };
+                document.getElementById('registerMessage').textContent = 'Registration successful! You can now log in.';
+                setTimeout(() => {
+                    registerForm.style.display = 'none';
+                    loginForm.style.display = 'block';
+                    document.getElementById('registerMessage').textContent = '';
+                }, 1500);
+            } else {
+                document.getElementById('registerMessage').textContent = 'Please fill all fields.';
+            }
+        };
+
+        // Login
+        loginForm.onsubmit = function (e) {
+            e.preventDefault();
+            const username = document.getElementById('login-username').value;
+            const password = document.getElementById('login-password').value;
+            if (demoUser && username === demoUser.username && password === demoUser.password) {
+                document.getElementById('loginMessage').textContent = 'Login successful! Welcome, ' + username + '.';
+            } else {
+                document.getElementById('loginMessage').textContent = 'Invalid credentials or user not registered.';
+            }
+        };
+    </script>
+</body>
+
+</html>
