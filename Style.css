@@ -409,11 +409,15 @@
             gap: 1rem;
         }
 
+
         .contact-icon {
             font-size: 1.5rem;
             color: #00f5ff;
         }
+        .contact-icon:hover{
+           cursor:pointer;
 
+        }
         .contact-form {
             display: flex;
             flex-direction: column;
