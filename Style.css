@@ -404,7 +404,7 @@
         }
 
         .contact-item {
-            display: flex;
+            display: column;
             align-items: center;
             gap: 1rem;
         }
